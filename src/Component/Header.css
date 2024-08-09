@@ -1,0 +1,117 @@
+Basic Reset
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Header Container */
+.header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: white;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+/* Logo */
+
+
+/* Navigation Menu */
+.fiverr-nav ul {
+    list-style: none;
+    display: flex;
+    margin-right: 100px;}
+
+.fiverr-nav li {
+    margin-left: 25px;
+}
+
+.seller-main-item {
+
+    text-decoration: none;
+    color: #404145;
+    font-weight: 600;
+    font-size: 17px;
+}
+
+.seller-main-item:hover {
+    color: #1dbf73;
+}
+
+.QXQPpo8 {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.nFghBOe {
+    margin-left: 8px;
+    display: flex;
+    align-items: center;
+}
+
+/* Icon Styling */
+.seller-main-icon {
+    position: relative;
+    cursor: pointer;
+}
+
+.seller-main-icon button {
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.seller-main-icon svg {
+    fill: #555;
+}
+
+/* Profile Picture */
+.vN3S32e {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    overflow: hidden;
+    border-radius: 50%;
+}
+
+.vN3S32e img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.i_NQop6 {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    background-color: #1dbf73;
+    border-radius: 50%;
+    border: 2px solid white;
+}
+
+/* Dropdown Arrows */
+svg {
+    width: 12px;
+    height: 12px;
+    fill: #555;
+}
+
+/* Button Reset */
+button {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+}
+
+/* Flex Utility */
+.flex {
+    display: flex;
+    align-items: center;
+}

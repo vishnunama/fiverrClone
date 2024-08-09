@@ -1,0 +1,79 @@
+
+.payment-page {
+    text-align: left;
+    padding: 40px;
+background-color: #ffffff;
+}
+
+h2 {
+    margin-bottom: 20px;
+}
+
+.tab-buttons {
+    color: #B4B6B9;
+    font-weight: 700;
+    display: flex;
+    list-style: none;
+    padding: 0;
+    border-bottom: 1px solid #e0e0e0;
+    margin-bottom: 0px;
+}
+
+.tab {
+    margin-right: 20px;
+    cursor: pointer;
+    padding: 10px 0;
+}
+
+.tab.active {
+    border-bottom: 2px solid #1DBF73;
+    color: #1DBF73;
+}
+
+.tab-content {
+    text-align: left;
+    padding: 20px 0;
+}
+
+.saved-methods {
+    list-style: none;
+    padding: 20px;
+    border-radius: 5px;
+    width: 45%;
+    border: 1.5px solid #E4E5E7;
+}
+
+.method,
+.add-method {
+    padding: 10px 0;
+    display: flex;
+
+    align-items: center;
+}
+
+.method svg,
+.add-method svg {
+    
+    margin-right: 10px;
+}
+
+.separator {
+    margin: 0 10px;
+    color: #74767e;
+}
+.add-method{
+    margin-top: 20px;
+        border-top: 1px solid #e0e0e0;
+      
+}
+
+.tab a {
+    text-decoration: none;
+    color: #95979D;
+    font-weight: 600;
+}
+
+.tab a:hover {
+    color: #1DBF73;
+}
+
