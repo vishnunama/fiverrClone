@@ -3,9 +3,7 @@ import axios from 'axios';
 import {
   Button,
   Dialog,
-  DialogActions,
   DialogContent,
-  DialogContentText,
   DialogTitle,
   FormControl,
   FormControlLabel,
@@ -14,6 +12,7 @@ import {
   RadioGroup,
   TextField,
 } from '@mui/material';
+import creditcard from '../Assets/credit-card.png'
 import myimage from '../Assets/card.png';
 import paypal from '../Assets/paypal(1).png';
 
@@ -24,6 +23,7 @@ export default function PopUp() {
   const [cardNumber, setCardNumber] = useState('');
   const [expirationDate, setExpirationDate] = useState('');
   const [securityCode, setSecurityCode] = useState('');
+  const [cardType, setCardType] = useState('');
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -37,12 +37,30 @@ export default function PopUp() {
     setSelectedOption1(event.target.value);
   };
 
+  const detectCardType = (number) => {
+    const firstDigit = number[0];
+    const firstTwoDigits = number.slice(0, 2);
+
+    if (firstDigit === '4') {
+      return 'Visa';
+    } else if (['51', '52', '53', '54', '55'].includes(firstTwoDigits)) {
+      return 'MasterCard';
+    } else if (firstTwoDigits === '34' || firstTwoDigits === '37') {
+      return 'American Express';
+    } else if (firstTwoDigits === '60') {
+      return 'Discover';
+    } else {
+      return '';
+    }
+  };
+
   const handleCardNumberChange = (event) => {
     let value = event.target.value.replace(/\D/g, ''); // Remove non-digits
-    if (value.length > 12) {
-      value = value.slice(0, 12); // Limit to 12 digits
+    if (value.length > 16) {
+      value = value.slice(0, 16); // Limit to 16 digits
     }
-    setCardNumber(value.replace(/(\d{4})(?=\d)/g, '$1 ')); // Format as 1234 3233 4343
+    setCardNumber(value.replace(/(\d{4})(?=\d)/g, '$1 ')); // Format as 1234 5678 9012 3456
+    setCardType(detectCardType(value));
   };
 
   const handleExpirationDateChange = (event) => {
@@ -50,7 +68,7 @@ export default function PopUp() {
     if (value.length > 4) {
       value = value.slice(0, 4); // Limit to 4 digits (MMYY)
     }
-    setExpirationDate(value.replace(/(\d{2})(?=\d)/g, '$1/')); // Format as 21/28
+    setExpirationDate(value.replace(/(\d{2})(?=\d)/g, '$1/')); // Format as MM/YY
   };
 
   const handleSecurityCodeChange = (event) => {
@@ -88,9 +106,7 @@ export default function PopUp() {
     <>
       <a style={{ cursor: 'pointer' }} onClick={handleClickOpen}>
         <li className="method">
-          <svg width={24} height={24} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M20.999 3H3C1.896 3 1 3.896 1 5V19C1 20.104 1.896 21 3 21H20.999C22.104 21 23 20.104 23 19V5C23 3.896 22.104 3 20.999 3ZM21 19H3V8H21V19ZM21 6H3V5H21V6Z" fill="currentColor" />
-          </svg>
+          <img style={{width:"25px", marginRight:"8px"}} src={creditcard} alt="" />
           Credit card
           <span className="separator">|</span>
          <img style={{width:"20px"}} src={paypal} alt="" />
@@ -110,79 +126,75 @@ export default function PopUp() {
           Add payment method
         </DialogTitle>
         <DialogContent>
-          <DialogContentText id="add-payment-method-description">
-            <FormControl component="fieldset">
-              <FormLabel component="legend">Select an Option</FormLabel>
-              <RadioGroup
-                aria-label="payment-method"
-                name="payment-method"
-                value={selectedOption1}
-                onChange={handleOption1Change}
-              >
+          <FormControl component="fieldset">
+            <FormLabel component="legend">Select an Option</FormLabel>
+            <RadioGroup
+              aria-label="payment-method"
+              name="payment-method"
+              value={selectedOption1}
+              onChange={handleOption1Change}
+            >
+              <div style={{display:"flex",gap:"80px"}}>
                 <FormControlLabel value="Credit / Debit Cards" control={<Radio />} label="Credit / Debit Cards" />
-              </RadioGroup>
-              <img style={{ width: '200px', marginRight: '350px' }} src={myimage} alt="Card Example" />
-            </FormControl>
-            {selectedOption1 && (
-              <div style={{ marginTop: 16 }}>
-                <TextField
-                  label="Card Number"
-                  variant="outlined"
-                  fullWidth
-                  value={cardNumber}
-                  onChange={handleCardNumberChange}
-                  placeholder="1234 3233 4343"
-                  margin="normal"
-                />
-                <div style={{ display: 'flex', justifyContent: 'space-between', gap: '10px' }}>
-                  <TextField
-                    label="Expiration Date"
-                    variant="outlined"
-                    fullWidth
-                    value={expirationDate}
-                    onChange={handleExpirationDateChange}
-                    placeholder="21/28"
-                    margin="normal"
-                    style={{ flex: '1' }}
-                  />
-                  <TextField
-                    label="Security Code"
-                    variant="outlined"
-                    fullWidth
-                    value={securityCode}
-                    onChange={handleSecurityCodeChange}
-                    placeholder="123"
-                    type="number"
-                    margin="normal"
-                    style={{ flex: '1' }}
-                  />
-                </div>
-                <TextField
-                  label="Cardholder's Name"
-                  variant="outlined"
-                  fullWidth
-                  value={cardholderName}
-                  onChange={(e) => setCardholderName(e.target.value)}
-                  margin="normal"
-                />
-                <div className="save-button-container">
-                  <Button
-                    onClick={handleSubmit}
-                    variant="contained"
-                    style={{ width: '100px', height: '40px', borderRadius: '8px', backgroundColor: 'black', color: 'white', fontSize: '15px' }}
-                  >
-                    Save
-                  </Button>
-                </div>
+                <img style={{width:"170px",height:"23px",marginTop:"7px"}} src={myimage} alt="Card Example" />
               </div>
-            )}
-          </DialogContentText>
+            </RadioGroup>
+          </FormControl>
+          {selectedOption1 && (
+            <div style={{ marginTop: 16 }}>
+              <TextField
+                label="Card Number"
+                variant="outlined"
+                fullWidth
+                value={cardNumber}
+                onChange={handleCardNumberChange}
+                placeholder="1234 5678 9012 3456"
+                margin="normal"
+                helperText={cardType ? `Detected Card Type: ${cardType}` : ''}
+              />
+              <div style={{ display: 'flex', justifyContent: 'space-between', gap: '10px' }}>
+                <TextField
+                  label="Expiration Date"
+                  variant="outlined"
+                  fullWidth
+                  value={expirationDate}
+                  onChange={handleExpirationDateChange}
+                  placeholder="MM/YY"
+                  margin="normal"
+                  style={{ flex: '1' }}
+                />
+                <TextField
+                  label="Security Code"
+                  variant="outlined"
+                  fullWidth
+                  value={securityCode}
+                  onChange={handleSecurityCodeChange}
+                  placeholder="123"
+                  type="number"
+                  margin="normal"
+                  style={{ flex: '1' }}
+                />
+              </div>
+              <TextField
+                label="Cardholder's Name"
+                variant="outlined"
+                fullWidth
+                value={cardholderName}
+                onChange={(e) => setCardholderName(e.target.value)}
+                margin="normal"
+              />
+              <div className="save-button-container">
+                <Button
+                  onClick={handleSubmit}
+                  variant="contained"
+                  style={{ width: '100px', height: '40px', borderRadius: '8px', backgroundColor: 'black', color: 'white', fontSize: '15px' }}
+                >
+                  Save
+                </Button>
+              </div>
+            </div>
+          )}
         </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose} autoFocus>
-            Close
-          </Button>
-        </DialogActions>
       </Dialog>
     </>
   );
