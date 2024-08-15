@@ -8,8 +8,19 @@ background-color: #ffffff;
 h2 {
     margin-bottom: 20px;
 }
+.heading{
+    font-size: 30px;
+}
+ @media only screen and (max-width: 450px) {
+     .heading {
+        font-size: 23px;
 
+     }
+
+ }
 .tab-buttons {
+    overflow-x: auto;
+    width: auto;
     color: #B4B6B9;
     font-weight: 700;
     display: flex;
@@ -42,6 +53,13 @@ h2 {
     width: 45%;
     border: 1.5px solid #E4E5E7;
 }
+ @media only screen and (max-width: 450px) {
+     .saved-methods {
+        width: 90%;
+
+     }
+
+ }
 
 .method,
 .add-method {
@@ -77,3 +95,36 @@ h2 {
     color: #1DBF73;
 }
 
+/* .footerimg{
+
+} */
+
+ @media only screen and (max-width: 450px) {
+     .footerimg {
+        display: none;
+     }
+
+ }
+
+ .popup{
+    display: flex;
+    gap: 80px;
+ }
+ .popup2{
+    width: 170px;
+        height: 23px;
+        margin-top: 7px;
+ }
+
+  @media only screen and (max-width: 450px) {
+      .popup2 {
+        width: 70px;
+            height: 15px;
+            margin-top: 13px;
+      }
+          .popup {
+              display: flex;
+              gap: 1px;
+          }
+
+  }

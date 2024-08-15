@@ -24,6 +24,21 @@ Basic Reset
     display: flex;
     margin-right: 100px;}
 
+        @media only screen and (max-width: 450px) {
+            .fiverr-nav{
+                display: none;
+            }
+    
+        }
+                @media only screen and (min-width: 450px) {
+                    .dropdown {
+                        display: none;
+                       
+                    }
+        
+                }
+                
+
 .fiverr-nav li {
     margin-left: 25px;
 }
@@ -115,3 +130,4 @@ button {
     display: flex;
     align-items: center;
 }
+

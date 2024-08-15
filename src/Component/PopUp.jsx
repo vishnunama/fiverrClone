@@ -134,9 +134,9 @@ export default function PopUp() {
               value={selectedOption1}
               onChange={handleOption1Change}
             >
-              <div style={{display:"flex",gap:"80px"}}>
+              <div className='popup' >
                 <FormControlLabel value="Credit / Debit Cards" control={<Radio />} label="Credit / Debit Cards" />
-                <img style={{width:"170px",height:"23px",marginTop:"7px"}} src={myimage} alt="Card Example" />
+                <img className='popup2'  src={myimage} alt="Card Example" />
               </div>
             </RadioGroup>
           </FormControl>
