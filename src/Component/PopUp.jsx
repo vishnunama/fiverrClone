@@ -1,3 +1,8 @@
+
+
+
+
+
 import React, { useState } from 'react';
 import axios from 'axios';
 import {
@@ -8,13 +13,21 @@ import {
   FormControl,
   FormControlLabel,
   FormLabel,
+  InputAdornment,
   Radio,
   RadioGroup,
   TextField,
 } from '@mui/material';
 import creditcard from '../Assets/credit-card.png'
-import myimage from '../Assets/card.png';
-import paypal from '../Assets/paypal(1).png';
+import paypal from '../Assets/paypal(1).png'
+import myimage from "../Assets/myimage.png"
+import visaImage from '../Assets/visa.png';
+import mastercardImage from '../Assets/mastercard.png';
+import amexImage from '../Assets/dinersclub.png';
+import discoverImage from '../Assets/discover.png';
+import defaultCardImage from '../Assets/credit-card.png';
+import padlock from '../Assets/padlock.png'
+ // A default image when no card is detected
 
 export default function PopUp() {
   const [open, setOpen] = useState(false);
@@ -24,6 +37,7 @@ export default function PopUp() {
   const [expirationDate, setExpirationDate] = useState('');
   const [securityCode, setSecurityCode] = useState('');
   const [cardType, setCardType] = useState('');
+  const [cardImage, setCardImage] = useState(defaultCardImage);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -42,14 +56,19 @@ export default function PopUp() {
     const firstTwoDigits = number.slice(0, 2);
 
     if (firstDigit === '4') {
+      setCardImage(visaImage);
       return 'Visa';
     } else if (['51', '52', '53', '54', '55'].includes(firstTwoDigits)) {
+      setCardImage(mastercardImage);
       return 'MasterCard';
     } else if (firstTwoDigits === '34' || firstTwoDigits === '37') {
+      setCardImage(amexImage);
       return 'American Express';
     } else if (firstTwoDigits === '60') {
+      setCardImage(discoverImage);
       return 'Discover';
     } else {
+      setCardImage(defaultCardImage);
       return '';
     }
   };
@@ -106,10 +125,10 @@ export default function PopUp() {
     <>
       <a style={{ cursor: 'pointer' }} onClick={handleClickOpen}>
         <li className="method">
-          <img style={{width:"25px", marginRight:"8px"}} src={creditcard} alt="" />
+          <img style={{ width: "25px", marginRight: "8px" }} src={defaultCardImage} alt="" />
           Credit card
           <span className="separator">|</span>
-         <img style={{width:"20px"}} src={paypal} alt="" />
+          <img style={{ width: "20px" }} src={paypal} alt="" />
           PayPal
         </li>
         <li className="add-method">
@@ -134,9 +153,9 @@ export default function PopUp() {
               value={selectedOption1}
               onChange={handleOption1Change}
             >
-              <div className='popup' >
+              <div className='popup'>
                 <FormControlLabel value="Credit / Debit Cards" control={<Radio />} label="Credit / Debit Cards" />
-                <img className='popup2'  src={myimage} alt="Card Example" />
+                <img className='popup2' src={myimage} alt="Card Example" />
               </div>
             </RadioGroup>
           </FormControl>
@@ -151,6 +170,16 @@ export default function PopUp() {
                 placeholder="1234 5678 9012 3456"
                 margin="normal"
                 helperText={cardType ? `Detected Card Type: ${cardType}` : ''}
+                InputProps={{
+                  startAdornment: (
+                    <img src={cardImage} alt={cardType} style={{ marginRight: '8px', width: '32px' }} />
+                  ),
+                   endAdornment: (
+                    <InputAdornment position="end">
+                      <img style={{width:"20px"}} src={padlock} alt="" />
+                    </InputAdornment>
+                  ),
+                }}
               />
               <div style={{ display: 'flex', justifyContent: 'space-between', gap: '10px' }}>
                 <TextField
